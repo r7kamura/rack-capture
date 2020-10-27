@@ -1,5 +1,5 @@
 module Rack
-  module Capture
+  class Capture
     VERSION = "0.1.0"
   end
 end
