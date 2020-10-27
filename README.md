@@ -1,5 +1,7 @@
 # Rack::Capture
 
+[![](https://badge.fury.io/rb/rack-capture.svg)](https://rubygems.org/gems/rack-capture)
+
 Generate static files from Rack application and URLs.
 
 ## Installation
