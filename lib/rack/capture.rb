@@ -4,6 +4,17 @@ require 'rack/capture/version'
 
 module R7k
   class Capture
+    class << self
+      # @param [#call] app Rack application.
+      # @param [String] url
+      def call(
+        app:,
+        url:
+      )
+        new(app: app, url: url).call
+      end
+    end
+
     # @param [#call] app Rack application.
     # @param [String] url
     def initialize(
