@@ -25,6 +25,8 @@ Or install it yourself as:
 Call `Rack::Capture.call` to generate static file.
 
 ```ruby
+require 'rack/capture'
+
 %w[
   http://example.com/
   http://example.com/articles
