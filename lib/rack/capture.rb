@@ -2,7 +2,7 @@ require 'pathname'
 require 'rack'
 require 'rack/capture/version'
 
-module R7k
+module Rack
   class Capture
     class << self
       # @param [#call] app Rack application.
