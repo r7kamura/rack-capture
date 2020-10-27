@@ -1,8 +1,6 @@
 # Rack::Capture
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rack/capture`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Generate static files from Rack application and URLs.
 
 ## Installation
 
@@ -22,7 +20,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Call `Rack::Capture.call` to generate static file.
+
+```ruby
+%w[
+  http://example.com/
+  http://example.com/articles
+  http://example.com/articles/2020-10-30.html
+  http://example.com/articles/2020-10-29.html
+  http://example.com/articles/2020-10-28.html
+  http://example.com/feed.xml
+  http://example.com/sitemap.txt
+].each do |url|
+  Rack::Capture.call(
+    app: my_rack_application,
+    url: url
+  )
+```
 
 ## Development
 
@@ -33,7 +47,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/r7kamura/rack-capture.
-
 
 ## License
 
