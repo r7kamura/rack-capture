@@ -40,6 +40,7 @@ require 'rack/capture'
     app: my_rack_application,
     url: url
   )
+end
 ```
 
 ## Development
