@@ -3,7 +3,7 @@ require_relative 'lib/rack/capture/version'
 Gem::Specification.new do |spec|
   spec.name          = "rack-capture"
   spec.version       = Rack::Capture::VERSION
-  spec.authors       = ["r7kamura"]
+  spec.authors       = ["Ryo Nakamura"]
   spec.email         = ["r7kamura@gmail.com"]
 
   spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
