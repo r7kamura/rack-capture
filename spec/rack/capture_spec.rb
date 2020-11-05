@@ -41,9 +41,9 @@ RSpec.describe Rack::Capture do
     end
 
     context 'with GET /index.html' do
-      it 'creates dist/index.html' do
+      it 'creates output/index.html' do
         subject
-        content = File.read('dist/index.html')
+        content = File.read('output/index.html')
         hash = JSON.parse(content)
         expect(hash).to eq(
           'path' => '/index.html',
@@ -58,9 +58,9 @@ RSpec.describe Rack::Capture do
         'http://example.com/'
       end
 
-      it 'creates dist/index.html' do
+      it 'creates output/index.html' do
         subject
-        content = File.read('dist/index.html')
+        content = File.read('output/index.html')
         hash = JSON.parse(content)
         expect(hash).to eq(
           'path' => '/',
@@ -77,7 +77,7 @@ RSpec.describe Rack::Capture do
 
       it 'uses it as SCRIPT_NAME' do
         subject
-        content = File.read('dist/index.html')
+        content = File.read('output/index.html')
         hash = JSON.parse(content)
         expect(hash).to eq(
           'path' => '/a/index.html',

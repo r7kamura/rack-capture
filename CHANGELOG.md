@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `:output_directory_path` option.
 
+### Changed
+
+- Change default output path from `"dist"` to `"output"`.
+
 ### Fixed
 
 - Fix output file name on GET /script_name/.
