@@ -33,7 +33,7 @@ module Rack
       destination.parent.mkpath
       content = ''
       response.body.each do |element|
-        content << element
+        content += element
       end
       destination.write(content)
     end
