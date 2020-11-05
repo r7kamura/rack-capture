@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+
+- Change least require ruby version from 2.4.0 to 2.5.0.
+
 ### Fixed
 
 - Fix frozen bug when a frozen body is passsed.
