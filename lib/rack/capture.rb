@@ -42,7 +42,7 @@ module Rack
     def calculate_destination(response:)
       destination = ::Pathname.new("dist#{path_info}")
       if response.content_type&.include?('text/html')
-        destination += 'index' if uri.path_info == '/'
+        destination += 'index' if path_info == '/'
         destination = destination.sub_ext('.html')
       end
       destination
