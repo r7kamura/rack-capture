@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 0.2.0 - 2020-11-06
+
 ### Changed
 
 - Change least require ruby version from 2.3.0 to 2.4.0.
