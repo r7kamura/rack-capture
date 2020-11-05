@@ -13,14 +13,17 @@ module Rack
     end
 
     # @param [#call] app Rack application.
+    # @param [String] output_directory_path
     # @param [String] script_name
     # @param [String] url
     def initialize(
       app:,
       url:,
+      output_directory_path: 'dist',
       script_name: ''
     )
       @app = app
+      @output_directory_path = output_directory_path
       @script_name = script_name
       @url = url
     end
@@ -40,7 +43,7 @@ module Rack
 
     # @param [Rack::Response] response
     def calculate_destination(response:)
-      destination = ::Pathname.new("dist#{path_info}")
+      destination = ::Pathname.new("#{@output_directory_path}#{path_info}")
       if response.content_type&.include?('text/html')
         destination += 'index' if path_info == '/'
         destination = destination.sub_ext('.html')
