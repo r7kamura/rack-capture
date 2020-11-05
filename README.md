@@ -44,6 +44,10 @@ require 'rack/capture'
 end
 ```
 
+### Options
+
+- `:output_directory_path` - Where to output files (default: `"dist"`)
+
 ## Development
 
 ### Setup

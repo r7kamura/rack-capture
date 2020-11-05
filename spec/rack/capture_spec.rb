@@ -86,5 +86,16 @@ RSpec.describe Rack::Capture do
         )
       end
     end
+
+    context 'with output_directory_path option' do
+      let(:kwargs) do
+        super().merge(output_directory_path: 'a/b')
+      end
+
+      it 'uses it as output directory path' do
+        subject
+        expect(File).to be_file('a/b/index.html')
+      end
+    end
   end
 end
