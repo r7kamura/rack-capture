@@ -19,7 +19,7 @@ module Rack
     def initialize(
       app:,
       url:,
-      output_directory_path: 'dist',
+      output_directory_path: 'output',
       script_name: ''
     )
       @app = app

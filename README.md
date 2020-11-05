@@ -48,7 +48,7 @@ end
 
 - `:app` - Rack application to be used for rendering response
 - `:url` - URL
-- `:output_directory_path` - Where to output files (default: `"dist"`)
+- `:output_directory_path` - Where to output files (default: `"output"`)
 - `:script_name` - Rack SCRIPT_NAME, commonly used for GitHub Pages project sites (default: `""`)
 
 ## Development
