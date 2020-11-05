@@ -3,38 +3,53 @@
 require 'pp' # Must be called before fakefs.
 require 'fakefs/spec_helpers'
 require 'json'
-require 'pathname'
 
 RSpec.describe Rack::Capture do
   describe '.call' do
     include FakeFS::SpecHelpers
 
     subject do
-      described_class.call(
-        app: app,
-        url: url
-      )
+      described_class.call(**kwargs)
     end
 
     let(:app) do
-      lambda { |_env|
+      lambda { |env|
+        request = Rack::Request.new(env)
         [
           200,
           { 'Content-Type' => 'text/html' },
-          %w[]
+          [
+            {
+              'path' => request.path,
+              'path_info' => request.path_info,
+              'script_name' => request.script_name
+            }.to_json
+          ]
         ]
       }
     end
 
-    context 'with GET /index.html' do
-      let(:url) do
-        'http://example.com/'
-      end
+    let(:kwargs) do
+      {
+        app: app,
+        url: url
+      }
+    end
 
+    let(:url) do
+      'http://example.com/index.html'
+    end
+
+    context 'with GET /index.html' do
       it 'creates dist/index.html' do
         subject
-        pathname = Pathname.new('dist/index.html')
-        expect(pathname).to exist
+        content = File.read('dist/index.html')
+        hash = JSON.parse(content)
+        expect(hash).to eq(
+          'path' => '/index.html',
+          'path_info' => '/index.html',
+          'script_name' => ''
+        )
       end
     end
 
@@ -45,8 +60,30 @@ RSpec.describe Rack::Capture do
 
       it 'creates dist/index.html' do
         subject
-        pathname = Pathname.new('dist/index.html')
-        expect(pathname).to exist
+        content = File.read('dist/index.html')
+        hash = JSON.parse(content)
+        expect(hash).to eq(
+          'path' => '/',
+          'path_info' => '/',
+          'script_name' => ''
+        )
+      end
+    end
+
+    context 'with script_name option' do
+      let(:kwargs) do
+        super().merge(script_name: '/a')
+      end
+
+      it 'uses it as SCRIPT_NAME' do
+        subject
+        content = File.read('dist/index.html')
+        hash = JSON.parse(content)
+        expect(hash).to eq(
+          'path' => '/a/index.html',
+          'path_info' => '/index.html',
+          'script_name' => '/a'
+        )
       end
     end
   end

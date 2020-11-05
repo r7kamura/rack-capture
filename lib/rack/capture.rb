@@ -7,23 +7,21 @@ require 'rack/capture/version'
 module Rack
   class Capture
     class << self
-      # @param [#call] app Rack application.
-      # @param [String] url
-      def call(
-        app:,
-        url:
-      )
-        new(app: app, url: url).call
+      def call(**args)
+        new(**args).call
       end
     end
 
     # @param [#call] app Rack application.
+    # @param [String] script_name
     # @param [String] url
     def initialize(
       app:,
-      url:
+      url:,
+      script_name: ''
     )
       @app = app
+      @script_name = script_name
       @url = url
     end
 
@@ -42,7 +40,7 @@ module Rack
 
     # @param [Rack::Response] response
     def calculate_destination(response:)
-      destination = ::Pathname.new("dist#{uri.path}")
+      destination = ::Pathname.new("dist#{path_info}")
       if response.content_type&.include?('text/html')
         destination += 'index' if uri.path == '/'
         destination = destination.sub_ext('.html')
@@ -56,15 +54,20 @@ module Rack
       ::Rack::Response.new(body, status, headers)
     end
 
+    # @return [String]
+    def path_info
+      uri.path.delete_prefix(@script_name)
+    end
+
     # @return [Hash]
     def rack_env
       {
         'HTTP_HOST' => @host,
-        'PATH_INFO' => uri.path,
+        'PATH_INFO' => path_info,
         'QUERY_STRING' => uri.query || '',
         'rack.url_scheme' => rack_url_scheme,
         'REQUEST_METHOD' => 'GET',
-        'SCRIPT_NAME' => '',
+        'SCRIPT_NAME' => @script_name,
         'SERVER_NAME' => uri.host
       }
     end
