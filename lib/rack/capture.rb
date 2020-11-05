@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 require 'rack'
 require 'rack/capture/version'
@@ -42,9 +44,7 @@ module Rack
     def calculate_destination(response:)
       destination = ::Pathname.new("dist#{uri.path}")
       if response.content_type&.include?('text/html')
-        if uri.path == '/'
-          destination += 'index'
-        end
+        destination += 'index' if uri.path == '/'
         destination = destination.sub_ext('.html')
       end
       destination
@@ -65,7 +65,7 @@ module Rack
         'rack.url_scheme' => rack_url_scheme,
         'REQUEST_METHOD' => 'GET',
         'SCRIPT_NAME' => '',
-        'SERVER_NAME' => uri.host,
+        'SERVER_NAME' => uri.host
       }
     end
 
